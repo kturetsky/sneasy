@@ -11,7 +11,6 @@
 #' @details Simpson's D is standardized by dividing by 1 - (1/k), where k is the number of groups in the network.
 #' @references Simpson, E. H. (1949). Measurement of diversity. Nature, 163, 688; Mcdonald, D. G., & Dimmick, J. (2003). The Conceptualization and Measurement of Diversity. Communication Research, 30(1), 60–79. https://doi.org/10.1177/0093650202239026
 #' @return A dataframe of Simpson's D for a particular attribute, along with optional node values for that attribute. Simpson's D will be NaN for individuals with no ties.
-#' @importFrom dplyr group_by
 #' @export
 simpsd <- function(g, dim, values, mode = "all", std = FALSE, include_att = TRUE){
 
@@ -55,7 +54,7 @@ simpsd <- function(g, dim, values, mode = "all", std = FALSE, include_att = TRUE
 
   df <- df %>%
     tidyr::pivot_longer(-c(PPID, !!dim), names_to="variable") %>%
-    group_by(PPID, !!sym(dim)) %>%
+    dplyr::group_by(PPID, !!sym(dim)) %>%
     dplyr::mutate(prop2=(value/sum(value))^2) %>%
     dplyr::summarize(!!paste0("simpsd_",dim) := 1-sum(prop2), .groups="drop_last")
 

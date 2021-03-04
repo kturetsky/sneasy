@@ -13,6 +13,9 @@
 #' @param missingweight Numeric; if participant nominated a tie but did not provide a tie strength rating, what strength should be assumed? (default is 1)
 #' @param return Character string; if "graph" or "network" (default), function will return an igraph graph object; if "matrix," function will return a network matrix; if "edgelist" or "el," function will return an edgelist
 #' @return A weighted igraph graph, network matrix, or edgelist
+#' @importFrom tidyselect contains
+#' @importFrom stringr str_detect
+#' @importFrom reshape2 acast
 #' @export
 buildnet <- function(snawide, nettype, weighttype = "Strength", missingweight = 1, return = "graph"){
 
@@ -20,8 +23,9 @@ buildnet <- function(snawide, nettype, weighttype = "Strength", missingweight = 
 
   xlong <- snawide %>%
     dplyr::select(c(PPID, tidyselect::contains(nettype))) %>%
-    tidyr::gather("variable","to",-PPID) %>%
-    dplyr::rename(from = PPID)
+    tidyr::pivot_longer(-PPID, names_to = "variable", values_to = "to") %>%
+    dplyr::rename(from = PPID) %>%
+    as.data.frame()
 
   el <- xlong %>%
     dplyr::filter(stringr::str_detect(variable, "Name|ID")) %>%

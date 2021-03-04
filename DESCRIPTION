@@ -21,7 +21,6 @@ Imports:
   dplyr,
   magrittr,
   igraph,
-  CINNA,
   reshape2,
   ggplot2,
   stats,

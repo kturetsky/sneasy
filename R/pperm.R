@@ -9,11 +9,6 @@
 #' @param coefname Optional character string; used to specify type of coefficent for x-axis label of plot (if not provided, x-axis label will just be 'Coefficient')
 #' @return Either a single numeric value representing p-perm if plot=FALSE; otherwise a list including both the plot and p-perm value
 #' @importFrom ggplot2 aes
-#' @importFrom ggplot2 geom_histogram
-#' @importFrom ggplot2 geom_vline
-#' @importFrom ggplot2 ylab
-#' @importFrom ggplot2 xlab
-#' @importFrom ggplot2 theme_bw
 #' @export
 pperm <- function(obs, permcoefs, alpha = .05, plot = TRUE, coefname = ""){
 
@@ -31,13 +26,13 @@ pperm <- function(obs, permcoefs, alpha = .05, plot = TRUE, coefname = ""){
   else{
     dist <- data.frame(permcoefs) %>%
       ggplot2::ggplot(aes(permcoefs)) +
-      geom_histogram(color = "darkseagreen", fill = "darkseagreen2", bins=30) +
-      geom_vline(aes(xintercept = obs), color = "black", lwd = 1, lty = 2) +
-      geom_vline(aes(xintercept=as.numeric(stats::quantile(permcoefs, 1-(.5*alpha)))), color="red", lwd=0.5, lty=1) +
-      geom_vline(aes(xintercept=as.numeric(stats::quantile(permcoefs, .5*alpha))), color="red", lwd=0.5, lty=1) +
-      ylab("Frequency") +
-      xlab(paste0(coefname, " Coefficient")) +
-      theme_bw()
+      ggplot2::geom_histogram(color = "darkseagreen", fill = "darkseagreen2", bins=30) +
+      ggplot2::geom_vline(aes(xintercept = obs), color = "black", lwd = 1, lty = 2) +
+      ggplot2::geom_vline(aes(xintercept=as.numeric(stats::quantile(permcoefs, 1-(.5*alpha)))), color="red", lwd=0.5, lty=1) +
+      ggplot2::geom_vline(aes(xintercept=as.numeric(stats::quantile(permcoefs, .5*alpha))), color="red", lwd=0.5, lty=1) +
+      ggplot2::ylab("Frequency") +
+      ggplot2::xlab(paste0(coefname, " Coefficient")) +
+      ggplot2::theme_bw()
 
     return(list(p.perm=round(pperm, digits=4),
                 plot=dist))

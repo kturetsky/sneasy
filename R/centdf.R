@@ -94,13 +94,22 @@ centdf <- function(g, pps, types = "all", norm = "none", inout = TRUE, include_a
 
   if (any(types %in% c("all", "alldisconnect", "harmonic", "hclose"))){
     if (any(norm %in% c("all", "alldisconnect", "harmonic", "hclose"))) harmnorm = (igraph::vcount(g) - 1) else harmnorm = 1
+
+    hclose_CINNA <- function(g, mode){
+      m <- 1/igraph::distances(g, mode = mode)
+      diag(m) <- 0
+      hc <- rowSums(m) - diag(m)
+      names(hc) <- V(g)$name[V(g)]
+      return(hc)
+    }
+
     if (inout==TRUE){
       df <- df %>%
-        dplyr::mutate(hclose = CINNA::harmonic_centrality(g, mode="all")/harmnorm,
-                      hclosein = CINNA::harmonic_centrality(g, mode="in")/harmnorm,
-                      hcloseout = CINNA::harmonic_centrality(g, mode="out")/harmnorm)
+        dplyr::mutate(hclose = hclose_CINNA(g, mode="all")/harmnorm,
+                      hclosein = hclose_CINNA(g, mode="in")/harmnorm,
+                      hcloseout = hclose_CINNA(g, mode="out")/harmnorm)
     }
-    else df <- df %>% dplyr::mutate(hclose = CINNA::harmonic_centrality(g, mode="all")/harmnorm)
+    else df <- df %>% dplyr::mutate(hclose = hclose_CINNA(g, mode="all")/harmnorm)
   }
 
   if (any(types %in% c("all", "alldisconnect", "strength", "str")) & igraph::is.weighted(g)){

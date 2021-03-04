@@ -37,7 +37,7 @@ tierecip <- function(el, type = "all") {
 
   recipprop <- el %>%
     dplyr::mutate(tierecip = dplyr::if_else(to==from, NA_integer_, tierecip)) %>%
-    group_by(from) %>%
+    dplyr::group_by(from) %>%
     dplyr::summarise(recip = mean(tierecip, na.rm=TRUE)) %>%
     dplyr::rename(PPID = from)
 
