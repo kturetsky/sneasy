@@ -1,0 +1,36 @@
+Package: sneasy
+Title: Helper Functions for Group Dynamics Lab Social Network Analysis
+Version: 0.0.0.9000
+Authors@R: 
+    person(given = "Kate",
+           family = "Turetsky",
+           role = c("aut", "cre"),
+           email = "kturetsky@princeton.edu",
+           comment = c(ORCID = "0000-0001-8530-6073"))
+Description: Helper functions to transform social network
+    data collected in wide format to networks, calculate
+    node-level network metrics (centrality, reciprocity,
+    homophily, diversity), and run node permutation tests.
+Encoding: UTF-8
+License: MIT + file LICENSE
+LazyData: true
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.1.0
+Imports:
+  dplyr,
+  magrittr,
+  igraph,
+  CINNA,
+  reshape2,
+  ggplot2,
+  stats,
+  rlang,
+  tidyselect,
+  tidyr,
+  stringr
+Depends: 
+    R (>= 2.10)
+Suggests: 
+    knitr,
+    rmarkdown
+VignetteBuilder: knitr
