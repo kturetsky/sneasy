@@ -11,6 +11,7 @@ Description: Helper functions to transform social network
     data collected in wide format to networks, calculate
     node-level network metrics (centrality, reciprocity,
     homophily, diversity), and run node permutation tests.
+URL: https://github.com/kturetsky/sneasy
 Encoding: UTF-8
 License: MIT + file LICENSE
 LazyData: true
