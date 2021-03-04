@@ -4,7 +4,7 @@
 The sneasy package contains a variety of helper functions used to make
 social network analysis easier. These functions were created for Group
 Dynamics Lab members and affiliates. Anyone can use the functions, with
-proper citation. However, many of the functions (e.g., buildnet) are
+proper citation. However, many of the functions (e.g., `buildnet`) are
 quite specific to the way we set up data and the type of networks we
 study in our lab.
 
