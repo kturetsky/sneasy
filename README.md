@@ -1,6 +1,8 @@
 
 # sneasy
 
+*Kate Turetsky, 2021*
+
 The sneasy package contains a variety of helper functions used to make
 social network analysis easier. These functions were created for Group
 Dynamics Lab members and affiliates. Anyone can use the functions, with
