@@ -10,9 +10,15 @@ vignette: >
 ---
 
 ```{r, include = FALSE}
+ragg_png = function(..., res = 192) {
+  ragg::agg_png(..., res = res, units = "in")
+}
+
 knitr::opts_chunk$set(
   collapse = TRUE,
-  comment = "#>"
+  comment = "#>",
+  dev = "ragg_png", 
+  fig.ext = "png"
 )
 ```
 
@@ -377,15 +383,15 @@ Next, we will run all the permutations. `nodeperm` creates a permuted network (`
 
 ```{r}
 for(i in 1:perms){
-  
+
   fgperm <- nodeperm(fmat) %>%
     attachatt(attfile, index = "PPID", attvars = "age")
-  
+
   dperm <- centdf(fgperm, pps = bionet$PPID, types = "degree", inout = FALSE)
-  
+
   mperm <- lm(degree ~ age, dperm)
   age.perm[[i]] <- mperm$coefficients[2]
-  
+
   #print(i)
 }
 ```
