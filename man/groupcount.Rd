@@ -7,6 +7,7 @@
 groupcount(
   g,
   dim,
+  values,
   mode = "all",
   adj = FALSE,
   include_ego = FALSE,
@@ -18,6 +19,8 @@ groupcount(
 
 \item{dim}{Character string; dimension on which to calculate diversity--the name of a graph attribute in quotes (e.g., "race")}
 
+\item{values}{Optional vector of character strings; all possible values of dim (e.g., c("Black", "White", "Latinx", "Asian")). If not provided, will assume that all possible values are represented in graph attributes and will issue message listing those values. Only used if adj = TRUE. To suppress message, use values = NULL.}
+
 \item{mode}{Character string; count number of groups among all ties of a node ("all"; default), or just outgoing ties ("out") or incoming ties ("in").}
 
 \item{adj}{Logical; if FALSE (default), a simple count will be calculated; if TRUE, count will be divided by the total number of groups in the network as a whole, such that returned values will be a proportion of total groups in the network represented in each node's ties}
@@ -27,7 +30,7 @@ groupcount(
 \item{include_att}{Logical; if TRUE (default), will include a column containing node values of specified dimension (e.g., participants' races)}
 }
 \value{
-A dataframe of number of groups represented in ties for a particular attribute, along with optional node values for that attribute. Group count will be 0 for individuals with no ties (if include_ego=FALSE).
+A dataframe of number of groups represented in ties for a particular attribute, along with optional node values for that attribute. Group count will be NaN for individuals with no ties.
 }
 \description{
 Calculate number of groups represented among each node's ties (a measure of diversity)

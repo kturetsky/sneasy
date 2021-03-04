@@ -4,12 +4,14 @@
 \alias{pperm}
 \title{Calculate p-perm}
 \usage{
-pperm(obs, permcoefs, plot = TRUE, coefname = "")
+pperm(obs, permcoefs, alpha = 0.05, plot = TRUE, coefname = "")
 }
 \arguments{
 \item{obs}{Numeric; observed coefficient}
 
 \item{permcoefs}{Numeric vector; coefficients derived from permuted networks}
+
+\item{alpha}{Numeric; the criterion for significance (defaults to .05)}
 
 \item{plot}{Logical; if TRUE (default), distribution plot will be included in output; if FALSE, only p-perm will be calculated}
 

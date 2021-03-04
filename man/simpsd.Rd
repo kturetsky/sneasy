@@ -11,7 +11,7 @@ simpsd(g, dim, values, mode = "all", std = FALSE, include_att = TRUE)
 
 \item{dim}{Character string; dimension on which to calculate diversity--the name of a graph attribute in quotes (e.g., "race")}
 
-\item{values}{Optional vector of character strings; all possible values of dim (e.g., c("Black", "White", "Latinx", "Asian")). If not provided, will assume that all possible values are represented in graph attributes and will issue message listing those values. To suppress message, use values=NULL.}
+\item{values}{Optional vector of character strings; all possible values of dim (e.g., c("Black", "White", "Latinx", "Asian")). If not provided, will assume that all possible values are represented in graph attributes and will issue message listing those values. Only used if std = TRUE. To suppress message, use values = NULL.}
 
 \item{mode}{Character string; calculate diversity of all ties of a node ("all"; default), or just outgoing ties ("out") or incoming ties ("in").}
 
