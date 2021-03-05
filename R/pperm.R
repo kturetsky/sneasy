@@ -8,9 +8,13 @@
 #' @param plot Logical; if TRUE (default), distribution plot will be included in output; if FALSE, only p-perm will be calculated
 #' @param coefname Optional character string; used to specify type of coefficent for x-axis label of plot (if not provided, x-axis label will just be 'Coefficient')
 #' @return Either a single numeric value representing p-perm if plot=FALSE; otherwise a list including both the plot and p-perm value
-#' @importFrom ggplot2 aes
 #' @export
 pperm <- function(obs, permcoefs, alpha = .05, plot = TRUE, coefname = ""){
+
+  if (plot==TRUE & !requireNamespace("ggplot2", quietly = TRUE)){
+    warning("Package \"ggplot2\" is required to plot permutation test results. Returning p.perm value only.")
+    plot <- FALSE
+  }
 
   if(stats::median(permcoefs)<0){
     obs_shift <- obs + abs(stats::median(permcoefs))
@@ -25,7 +29,7 @@ pperm <- function(obs, permcoefs, alpha = .05, plot = TRUE, coefname = ""){
   if(plot==FALSE) round(pperm, digits=4)
   else{
     dist <- data.frame(permcoefs) %>%
-      ggplot2::ggplot(aes(permcoefs)) +
+      ggplot2::ggplot(ggplot2::aes(permcoefs)) +
       ggplot2::geom_histogram(color = "darkseagreen", fill = "darkseagreen2", bins=30) +
       ggplot2::geom_vline(aes(xintercept = obs), color = "black", lwd = 1, lty = 2) +
       ggplot2::geom_vline(aes(xintercept=as.numeric(stats::quantile(permcoefs, 1-(.5*alpha)))), color="red", lwd=0.5, lty=1) +

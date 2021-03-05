@@ -22,7 +22,6 @@ Imports:
   magrittr,
   igraph,
   reshape2,
-  ggplot2,
   stats,
   rlang,
   tidyselect,
@@ -31,6 +30,7 @@ Imports:
 Depends: 
     R (>= 2.10)
 Suggests: 
+    ggplot2,
     knitr,
     rmarkdown
 VignetteBuilder: knitr
