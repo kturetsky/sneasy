@@ -1,5 +1,5 @@
 Package: sneasy
-Title: Helper Functions for Group Dynamics Lab Social Network Analysis
+Title: Helper Functions for Social Network Analysis
 Version: 0.0.0.9000
 Authors@R: 
     person(given = "Kate",
