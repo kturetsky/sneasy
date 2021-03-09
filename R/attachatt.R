@@ -10,6 +10,10 @@
 #' @export
 attachatt <- function(g, attdf, index, attvars){
 
+  if(!missing(attvars) & !(attvars %in% names(attdf))){
+    stop(paste0("Variable '", attvars[which(!(attvars %in% names(attdf)))], "' not found in attribute dataframe."))
+  }
+
   if(missing(attvars)){
     warning("List of attribute variables not provided -- attaching all variables in attribute data aside from index column.")
     attvars <- setdiff(colnames(attdf), index)
