@@ -99,7 +99,7 @@ centdf <- function(g, pps, types = "all", norm = "none", inout = TRUE, include_a
       m <- 1/igraph::distances(g, mode = mode)
       diag(m) <- 0
       hc <- rowSums(m) - diag(m)
-      names(hc) <- V(g)$name[V(g)]
+      names(hc) <- igraph::V(g)$name[igraph::V(g)]
       return(hc)
     }
 
