@@ -16,7 +16,7 @@ attachatt <- function(g, attdf, index, attvars){
   }
 
   for(i in 1:length(attvars)){
-    if(!(attvars %in% names(attdf))){
+    if(!(attvars[i] %in% names(attdf))){
       stop(paste0("Variable '", attvars[which(!(attvars %in% names(attdf)))], "' not found in attribute dataframe. "))
     }
   }
