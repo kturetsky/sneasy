@@ -15,8 +15,10 @@ attachatt <- function(g, attdf, index, attvars){
     attvars <- setdiff(colnames(attdf), index)
   }
 
-  if(!(attvars %in% names(attdf))){
-    stop(paste0("Variable '", attvars[which(!(attvars %in% names(attdf)))], "' not found in attribute dataframe."))
+  for(i in 1:length(attvars)){
+    if(!(attvars %in% names(attdf))){
+      stop(paste0("Variable '", attvars[which(!(attvars %in% names(attdf)))], "' not found in attribute dataframe. "))
+    }
   }
 
   if(is.null(attvars)){
