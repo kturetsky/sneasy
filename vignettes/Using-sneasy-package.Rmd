@@ -372,7 +372,7 @@ This model suggests that an increase of one year in age is associated with a 0.3
 
 To create this null model, we will "permute" the network -- i.e., keep the underlying network the same, but randomly shuffle the attributes associated with each node, including age -- some large number of times (here we will do 10,000 permutations). For each permutation of the network, we will calculate each node's new centrality and then run the same linear model as above, extracting the coefficient of the effect of age on degree centrality. This will give us 10,000 age coefficients that form a distribution of the effects of age that we would expect purely by chance based on the network structure (the null distribution), against which we can compare our observed age coefficient (0.31).
 
-First, set the number of permutations you are going to run, save the observed age coefficient, and set up an empty vector that will store all your age coefficients estimated based on permuted networks
+First, set the number of permutations you are going to run, save the observed age coefficient, and set up an empty vector that will store all your age coefficients estimated based on permuted networks:
 
 ```{r}
 perms <- 10000
