@@ -21,20 +21,33 @@ buildnet <- function(snawide, nettype, weighttype = "Strength", missingweight = 
 
   if(!(return %in% c("graph", "network", "matrix", "edgelist", "el"))) stop("Valid values of 'return' are: 'graph', 'network', 'matrix', 'edgelist', 'el'")
 
+  if(is.character(snawide$PPID)){
+    snawide <- snawide %>%
+      dplyr::mutate(across(tidyselect::contains(weighttype), as.character))
+    convertweight <- TRUE
+  } else convertweight <- FALSE
+
   xlong <- snawide %>%
     dplyr::select(c(PPID, tidyselect::contains(nettype))) %>%
     tidyr::pivot_longer(-PPID, names_to = "variable", values_to = "to") %>%
     dplyr::rename(from = PPID) %>%
     as.data.frame()
 
-  el <- xlong %>%
+  el_init <- xlong %>%
     dplyr::filter(stringr::str_detect(variable, "Name|ID")) %>%
     dplyr::mutate(weight = dplyr::filter(xlong, stringr::str_detect(variable, weighttype))[,3]) %>%
-    dplyr::select(-variable) %>%
-    dplyr::mutate(weight = ifelse(!is.na(to) & is.na(weight), missingweight, weight),
+    dplyr::select(-variable)
+
+  if(convertweight){
+    el_init <- el_init %>%
+      mutate(weight = as.numeric(weight))
+  }
+
+    el <- el_init %>%
+      dplyr::mutate(weight = ifelse(!is.na(to) & is.na(weight), missingweight, weight),
                   to = ifelse(is.na(to), from, to)) %>%
-    dplyr::mutate(weight = ifelse(to == from, 0, weight)) %>%
-    dplyr::distinct()
+      dplyr::mutate(weight = ifelse(to == from, 0, weight)) %>%
+      dplyr::distinct(to, from, .keep_all = TRUE)
 
   lvls <- unique(c(as.character(el$from), as.character(el$to)))
 
